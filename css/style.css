@@ -69,6 +69,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background: no-repeat 92% 14% /16% url(../assets/svg/paws.svg);
 }
 
 .title {
@@ -88,6 +89,7 @@ body {
   justify-content: center;
   width: 600px;
   height: 600px;
+  margin-bottom: 30px;
   border: 5px solid var(--color-bright-default);
   border-radius: 16px;
   overflow: hidden;
@@ -178,34 +180,37 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.flip-card {
-  display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 15px;
+  gap: 0 10px;
+  margin: 0 5px;
   perspective: 1000px;
 }
 
 .flip-card-wrap {
-  transition: transform 0.5s;
-  transform-style: preserve-3d;
+  position: relative;
+  margin: auto;
   box-shadow: 0 1px 5px var(--color-basic-lightGray);
   border-radius: 5px;
   cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
 }
 
-.front-flip {
+.flip-card-wrap.flip {
+  transform: rotateY(180deg);
+  transition: 0.7s ease-in-out;
+}
+
+.front-face {
   background: no-repeat 0 0 / cover url(../assets/jpg/images.jpg);
 }
 
-.front-flip,
-.back-flip {
+.front-face,
+.back-face {
   width: 220px;
   height: 220px;
-  backface-visibility: hidden;
   border-radius: 5px;
+  backface-visibility: hidden;
 }
 
 .card-size-4 {
@@ -228,26 +233,28 @@ body {
   height: 45px;
 }
 
-.flip {
-  transform: rotateY(180deg);
-  transition: 0.7s ease-in-out;
-}
-
-.back-flip {
+.back-face {
   position: absolute;
-  transform: rotateY(180deg);
-  transition: 1s ease-in-out;
   top: 0;
   left: 0;
-  background: linear-gradient(135deg, var(--color-basic-lightGray), var(--color-bright-default), var(--color-bright-active));
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
+  background: linear-gradient(135deg, var(--color-basic-lightGray), var(--color-bright-default), var(--color-bright-active));
+  transform: rotateY(180deg);
+  transition: all 1s ease-in-out;
 }
 
 .number {
   color: var(--color-basic-darkSteel);
   font-size: var(--font4);
   font-weight: 900;
+}
+
+.timer,
+.finish {
+  color: var(--color-basic-lightGray);
+  font-size: var(--font3);
+  font-weight: 800;
 }

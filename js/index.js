@@ -1,35 +1,43 @@
+const gameWrap = document.querySelector('.game-wrapper');
 const gameField = document.querySelector('.game');
 const playground = document.querySelector('.playground');
-const flipCard = document.querySelector('.flip-card');
 const menu = document.querySelector('.menu');
 const warning = document.querySelector('.menu__subtitle');
 const input = document.querySelector('.menu__level');
 const button = document.querySelector('.menu__btn');
-
-
+const timer = document.querySelector('.timer');
+const finish = document.querySelector('.finish');
+/**
+ * change hide-class playground function
+ */
 function hideMenu() {
   menu.classList.add('hide');
+  startTimer();
   playground.classList.remove('hide');
 }
-
+/**
+ * create cards (wrap, front&back face) depending on select level
+ */
 function getCards(cards) {
 
   for (let card = 1; card <= Math.pow(cards, 2); card++) {
 
     let flipWrap = document.createElement("div");
-    flipCard.appendChild(flipWrap);
+    playground.appendChild(flipWrap);
     flipWrap.classList.add("flip-card-wrap");
 
-    let frontFlip = document.createElement("div");
-    flipWrap.appendChild(frontFlip);
-    frontFlip.classList.add("front-flip");
+    let frontFace = document.createElement("div");
+    flipWrap.appendChild(frontFace);
+    frontFace.classList.add("front-face");
 
-    let backFlip = document.createElement("div");
-    flipWrap.appendChild(backFlip);
-    backFlip.classList.add("back-flip");
+    let backFace = document.createElement("div");
+    flipWrap.appendChild(backFace);
+    backFace.classList.add("back-face");
   }
 }
-
+/**
+ * deal cards on the table depending on select level
+ */
 function dealCards(cards) {
   switch(cards) {
     case 2:
@@ -49,10 +57,12 @@ function dealCards(cards) {
       break;
   }
 }
-
+/**
+ *
+ */
 function changeSizeImg() {
-  const imagesFront = document.querySelectorAll('.front-flip');
-  const numsBack = document.querySelectorAll('.back-flip');
+  const imagesFront = document.querySelectorAll('.front-face');
+  const numsBack = document.querySelectorAll('.back-face');
   switch(imagesFront.length) {
     case 16:
       imagesFront.forEach(el => el.classList.add('card-size-4'));
@@ -72,12 +82,13 @@ function changeSizeImg() {
       break;
   }
 }
-
+/**
+ *
+ */
 function toggleCards() {
 
   const cards = document.querySelectorAll('.flip-card-wrap');
-  const images = document.querySelectorAll('.front-flip');
-  const cardsBack = document.querySelectorAll('.back-flip');
+  const cardsBack = document.querySelectorAll('.back-face');
 
   let arrOfNumbers = () => {
     let arr = [];
@@ -102,7 +113,7 @@ function toggleCards() {
   function putNumbersBack() {
     const nums = shuffle(arrOfNumbers());
 
-    images.forEach((card, index) => card.setAttribute('data-number', nums[index]));
+    cards.forEach((card, index) => card.setAttribute('data-number', nums[index]));
 
     cardsBack.forEach((card, index) => {
       card.classList.add('number');
@@ -132,25 +143,93 @@ function toggleCards() {
 
   putNumbersBack();
 
-  [...cards].map(card => card.addEventListener("click", () => {
-    card.classList.toggle('flip');
-    // compareCards();
-  }))
+
+
+  let lockFlipping = false;
+  let flippedCard = false;
+  let firstFlippedCard;
+  let secondFlippedCard;
+
+  function flipCard() {
+    if (lockFlipping) return;
+    if (this === firstFlippedCard) return;
+
+    this.classList.add('flip');
+
+    if (!flippedCard) {
+      // 1 click
+      flippedCard = true;
+      firstFlippedCard = this;
+    } else {
+      // 2 click
+      flippedCard = false;
+      secondFlippedCard = this;
+
+      checkForMatch();
+      /**
+       * check matching cards function
+       */
+      function checkForMatch() {
+        let isMatch = firstFlippedCard.dataset.number !== secondFlippedCard.dataset.number;
+        isMatch ? unflipCards() : disableCards();
+      }
+
+      function unflipCards() {
+        lockFlipping = true;
+        setTimeout(() => {
+          firstFlippedCard.classList.remove('flip');
+          secondFlippedCard.classList.remove('flip');
+
+          lockFlipping = false;
+        }, 1500);
+      }
+
+      function disableCards() {
+        firstFlippedCard.removeEventListener('click', flipCard);
+        secondFlippedCard.removeEventListener('click', flipCard);
+      }
+
+/*!
+      // function finishGame() {
+      //   if (flippedCard === true) {
+      //     gameField.classList.add('hide');
+      //     timer.classList.add('hide');
+      //     finish.classList.remove('hide');
+      //     finish.textContent = `Bravo!`;
+      //   }
+      // }
+
+      // finishGame();*/
+
+    }
+  }
+
+  cards.forEach(card => card.addEventListener("click", flipCard));
 }
 
-// function compareCards() {
-//   const flippedCard = document.querySelectorAll('.flip');
-//   console.log(...flippedCard);
 
-//   if (flippedCard.length === 2) {
-//     if ([...flippedCard][0].firstElementChild.getAttribute('data-number') !== [...flippedCard][1].firstElementChild.getAttribute('data-number')) {
-//       flippedCard.classList.remove('flip');
-//     }
-//   }
 
-//   // let clickedCard = (event) => console.log(event.target);
-//   // document.addEventListener('click', clickedCard);
-// }
+
+/**
+ * timer functions
+ */
+function startTimer () {
+
+  let time = 0;
+
+  timerUp = setInterval(function() {
+    let minutes = Math.floor(time/60);
+    let seconds = time % 60;
+
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+
+    timer.innerHTML = `${minutes}:${seconds}`;
+    time++;
+  }, 1000);
+}
+/*--------------------------------- */
+
 
 
 
