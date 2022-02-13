@@ -1,20 +1,46 @@
 const gameWrap = document.querySelector('.game-wrapper');
 const gameField = document.querySelector('.game');
+const title = document.querySelector('.title');
+const timer = document.querySelector('.subtitle');
 const playground = document.querySelector('.playground');
 const menu = document.querySelector('.menu');
 const warning = document.querySelector('.menu__subtitle');
 const input = document.querySelector('.menu__level');
 const button = document.querySelector('.menu__btn');
-const timer = document.querySelector('.timer');
+const btnReset = document.querySelector('.btn-reset');
 const finish = document.querySelector('.finish');
+
 /**
- * change hide-class playground function
+ * change visibility functions
  */
-function hideMenu() {
-  menu.classList.add('hide');
-  startTimer();
-  playground.classList.remove('hide');
+function hideElement(el) {
+  el.classList.add('hide');
 }
+
+function showElement(el) {
+  el.classList.remove('hide');
+}
+/**
+ * timer function
+ */
+let time = 0;
+let timeUp;
+let min = 0;
+let sec = 0;
+
+function startTimer () {
+  timeUp = setInterval(function() {
+    min = Math.floor(time/60);
+    sec = time % 60;
+
+    sec = sec < 10 ? `0${sec}` : sec;
+    min = min < 10 ? `0${min}` : min;
+
+    timer.innerHTML = `${min}:${sec}`;
+    time++;
+  }, 1000);
+}
+
 /**
  * create cards (wrap, front&back face) depending on select level
  */
@@ -58,7 +84,7 @@ function dealCards(cards) {
   }
 }
 /**
- *
+ * change size imgs depending on select level
  */
 function changeSizeImg() {
   const imagesFront = document.querySelectorAll('.front-face');
@@ -82,14 +108,18 @@ function changeSizeImg() {
       break;
   }
 }
+
 /**
- *
+ * get playground field
  */
-function toggleCards() {
+function startGame() {
 
   const cards = document.querySelectorAll('.flip-card-wrap');
   const cardsBack = document.querySelectorAll('.back-face');
 
+  /**
+   * get array of random digits
+  */
   let arrOfNumbers = () => {
     let arr = [];
     for (let i = 1; i < (cards.length+1)/2; i++) {
@@ -98,7 +128,9 @@ function toggleCards() {
     }
     return arr;
   }
-
+  /**
+   * mix digits func
+   */
   function shuffle(arr){
     let j, temp;
     for(let i = arr.length - 1; i > 0; i--){
@@ -110,146 +142,154 @@ function toggleCards() {
     return arr;
   }
 
-  function putNumbersBack() {
-    const nums = shuffle(arrOfNumbers());
+  const nums = shuffle(arrOfNumbers());
+  /**
+   * set data-atr for flip-card wrappers
+   */
+  cards.forEach((card, index) => card.setAttribute('data-number', nums[index]));
+  /**
+   * put digits in back-face of cards
+   */
+  cardsBack.forEach((card, index) => {
+    card.classList.add('number');
+    card.textContent = nums[index];
+  });
 
-    cards.forEach((card, index) => card.setAttribute('data-number', nums[index]));
+  const numbers = document.querySelectorAll('.number');
 
-    cardsBack.forEach((card, index) => {
-      card.classList.add('number');
-      card.textContent = nums[index];
-    });
-
-    getSizeNums();
-  }
-
-  function getSizeNums() {
-    const nums = document.querySelectorAll('.number');
-    switch(nums.length) {
+  /**
+   * change size nums depending on select level
+   */
+  (function() {
+    switch(numbers.length) {
       case 36:
-        nums.forEach(el => el.style.fontSize = 'var(--font3)');
+        numbers.forEach(el => el.style.fontSize = 'var(--font3)');
         break;
       case 64:
-        nums.forEach(el => el.style.fontSize = 'var(--font3)');
+        numbers.forEach(el => el.style.fontSize = 'var(--font3)');
         break;
       case 100:
-        nums.forEach(el => el.style.fontSize = 'var(--font2)');
+        numbers.forEach(el => el.style.fontSize = 'var(--font2)');
         break;
       default:
-        nums.forEach(el => el.style.fontSize = 'var(--font4)');
+        numbers.forEach(el => el.style.fontSize = 'var(--font4)');
         break;
     }
-  }
-
-  putNumbersBack();
-
-
-
-  let lockFlipping = false;
-  let flippedCard = false;
-  let firstFlippedCard;
-  let secondFlippedCard;
-
-  function flipCard() {
-    if (lockFlipping) return;
-    if (this === firstFlippedCard) return;
-
-    this.classList.add('flip');
-
-    if (!flippedCard) {
-      // 1 click
-      flippedCard = true;
-      firstFlippedCard = this;
-    } else {
-      // 2 click
-      flippedCard = false;
-      secondFlippedCard = this;
-
-      checkForMatch();
-      /**
-       * check matching cards function
-       */
-      function checkForMatch() {
-        let isMatch = firstFlippedCard.dataset.number !== secondFlippedCard.dataset.number;
-        isMatch ? unflipCards() : disableCards();
-      }
-
-      function unflipCards() {
-        lockFlipping = true;
-        setTimeout(() => {
-          firstFlippedCard.classList.remove('flip');
-          secondFlippedCard.classList.remove('flip');
-
-          lockFlipping = false;
-        }, 1500);
-      }
-
-      function disableCards() {
-        firstFlippedCard.removeEventListener('click', flipCard);
-        secondFlippedCard.removeEventListener('click', flipCard);
-      }
-
-/*!
-      // function finishGame() {
-      //   if (flippedCard === true) {
-      //     gameField.classList.add('hide');
-      //     timer.classList.add('hide');
-      //     finish.classList.remove('hide');
-      //     finish.textContent = `Bravo!`;
-      //   }
-      // }
-
-      // finishGame();*/
-
-    }
-  }
+  }());
 
   cards.forEach(card => card.addEventListener("click", flipCard));
 }
 
+/**
+ * flip & matching cards funcs
+ */
+let lockFlipping = false;
+let flippedCard = false;
+let firstFlippedCard;
+let secondFlippedCard;
 
+function flipCard() {
+  // this = clicked card
+  if (lockFlipping) return;
+  if (this === firstFlippedCard) return;
+
+  this.classList.add('flip');
+
+  // card back-face up
+  if (!flippedCard) {
+    // 1 click
+    flippedCard = true;
+    firstFlippedCard = this;
+  } else {
+    // 2 click
+    flippedCard = false;
+    secondFlippedCard = this;
+    checkForMatch();
+  }
+
+  /**
+   * check matching cards functions
+   */
+  function checkForMatch() {
+    let isMatch = firstFlippedCard.dataset.number !== secondFlippedCard.dataset.number;
+    isMatch ? unflipCards() : disableCards();
+  }
+
+  function unflipCards() {
+    lockFlipping = true;
+    setTimeout(() => {
+      firstFlippedCard.classList.remove('flip');
+      secondFlippedCard.classList.remove('flip');
+
+      lockFlipping = false;
+    }, 1500);
+  }
+
+  function disableCards() {
+    firstFlippedCard.removeEventListener('click', flipCard);
+    secondFlippedCard.removeEventListener('click', flipCard);
+  }
+
+  const cards = playground.querySelectorAll('.flip-card-wrap');
+  const flippedCards = playground.querySelectorAll('.flip');
+
+  if (flippedCards.length === cards.length) {
+    setTimeout(() => {
+      finishGame();
+    }, 1500);
+  }
+}
+
+/**
+ * finish text create func
+ */
+function getFinishText() {
+  const bravo = document.createElement('h2');
+  const timeCountResult = document.createElement('p')
+  finish.appendChild(bravo);
+  finish.appendChild(timeCountResult);
+  finish.style.height = "190px";
+  bravo.classList.add('bravo');
+  timeCountResult.classList.add('result');
+  bravo.textContent = 'Bravo!';
+  timeCountResult.textContent = `Your time: ${Math.floor(min)} min and ${Math.floor(sec)} sec!`;
+}
 
 
 /**
- * timer functions
+ * finished game when all cards was flipped
  */
-function startTimer () {
+  function finishGame() {
+  hideElement(gameField);
+  hideElement(title);
+  hideElement(timer);
+  hideElement(btnReset);
+  showElement(finish);
+  getFinishText();
 
-  let time = 0;
-
-  timerUp = setInterval(function() {
-    let minutes = Math.floor(time/60);
-    let seconds = time % 60;
-
-    seconds = seconds < 10 ? "0" + seconds : seconds;
-    minutes = minutes < 10 ? "0" + minutes : minutes;
-
-    timer.innerHTML = `${minutes}:${seconds}`;
-    time++;
-  }, 1000);
+  setTimeout(() => location.reload(), 3000);
 }
-/*--------------------------------- */
 
 
-
-
-
-function startGame() {
-  hideMenu();
+function game() {
+  hideElement(menu);
+  showElement(playground);
+  showElement(btnReset);
+  startTimer();
   dealCards(+input.value);
   getCards();
   changeSizeImg(+input.value);
-  toggleCards();
+  startGame();
 }
 
-
-
-
+/**
+ *  validate input & click btn to start
+ */
 button.addEventListener("click", () => {
   let invalid = +input.value.match(/[13579]/g);
   let value = +input.value;
   if(value > 0 && value < 11 && value !== invalid) {
-    startGame();
+    game();
   } else {
     warning.classList.add('warning');
     setTimeout(() => {
@@ -257,3 +297,5 @@ button.addEventListener("click", () => {
     }, 1500);
   }
 });
+
+btnReset.addEventListener('click', () => location.reload());

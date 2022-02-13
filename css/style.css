@@ -81,7 +81,8 @@ body {
 
 .subtitle {
   padding-bottom: 30px;
-  font-size: var(--font1);
+  font-size: var(--font2);
+  font-weight: 800;
 }
 
 .game {
@@ -138,9 +139,17 @@ body {
 
 .menu__btn:hover {
   color: var(--color-basic-darkSteel);
-  background-color: var(--color-bright-active);
-  box-shadow: 2px 2px 10px var(--color-bright-default);
+  background-color: var(--color-bright-default);
+  box-shadow: 2px 2px 10px var(--color-bright-active);
   cursor: pointer;
+  transition: all 0.5s ease-in-out;
+}
+
+.menu__btn:active {
+  color: var(--color-basic-lightGray);
+  background-color: var(--color-bright-active);
+  box-shadow: 2px 2px 15px var(--color-bright-active);
+  transform: scale(0.95);
   transition: all 0.5s ease-in-out;
 }
 
@@ -252,9 +261,62 @@ body {
   font-weight: 900;
 }
 
-.timer,
+.btn-reset {
+  padding: 15px 25px;
+  border: 2px solid var(--color-bright-default);
+  border-radius: 10px;
+  color: var(--color-basic-lightGray);
+  font-size: var(--font1);
+}
+
+.btn-reset:hover {
+  color: var(--color-basic-darkSteel);
+  background-color: var(--color-bright-active);
+  box-shadow: 2px 2px 10px var(--color-bright-default);
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+}
+
+.btn-reset:active {
+  color: var(--color-basic-darkSteel);
+  background-color: var(--color-basic-lightGray);
+  box-shadow: 2px 2px 15px var(--color-bright-active);
+  transform: scale(0.95);
+  transition: all 0.5s ease-in-out;
+}
+
+
+
+
+
 .finish {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bravo {
+  padding-bottom: 20px;
+  text-align: center;
+  color: var(--color-bright-active);
+  font-size: var(--font4);
+  font-weight: 800;
+  animation: bigText 2s infinite;
+}
+
+@keyframes bigText {
+  0%, 100% {
+    font-size: var(--font4);
+  }
+  50% {
+    font-size: 100px;
+  }
+}
+
+.result {
+  text-align: center;
   color: var(--color-basic-lightGray);
   font-size: var(--font3);
-  font-weight: 800;
+  line-height: 70px;
 }
