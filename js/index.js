@@ -4,7 +4,6 @@ const title = document.querySelector('.title');
 const timer = document.querySelector('.subtitle');
 const playground = document.querySelector('.playground');
 const menu = document.querySelector('.menu');
-const warning = document.querySelector('.menu__subtitle');
 const input = document.querySelector('.menu__level');
 const button = document.querySelector('.menu__btn');
 const btnReset = document.querySelector('.btn-reset');
@@ -255,7 +254,6 @@ function getFinishText() {
   timeCountResult.textContent = `Your time: ${Math.floor(min)} min and ${Math.floor(sec)} sec!`;
 }
 
-
 /**
  * finished game when all cards was flipped
  */
@@ -291,10 +289,7 @@ button.addEventListener("click", () => {
   if(value > 0 && value < 11 && value !== invalid) {
     game();
   } else {
-    warning.classList.add('warning');
-    setTimeout(() => {
-      location.reload();
-    }, 1500);
+    input.value = 4;
   }
 });
 

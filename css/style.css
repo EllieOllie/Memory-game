@@ -157,34 +157,6 @@ body {
   display: none;
 }
 
-.warning {
-  text-shadow: 4px 4px 15px var(--color-basic-lightGray);
-  font-weight: 900;
-  animation: animate-text 1.5s ease-in-out;
-}
-
-.warning strong {
-  text-decoration: underline;
-}
-
-@keyframes animate-text {
-  0% {
-    transform: scale(1);
-  }
-  25% {
-    transform: scale(1.2);
-  }
-  50% {
-    transform: scale(0.8);
-  }
-  75% {
-    transform: scale(1.2);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
 .playground {
   display: flex;
   justify-content: center;
@@ -285,10 +257,6 @@ body {
   transition: all 0.5s ease-in-out;
 }
 
-
-
-
-
 .finish {
   display: flex;
   flex-direction: column;
@@ -302,6 +270,7 @@ body {
   color: var(--color-bright-active);
   font-size: var(--font4);
   font-weight: 800;
+  text-shadow: 2px 2px 15px var(--color-bright-active);
   animation: bigText 2s infinite;
 }
 
@@ -319,4 +288,78 @@ body {
   color: var(--color-basic-lightGray);
   font-size: var(--font3);
   line-height: 70px;
+}
+
+@media (max-width: 375px) {
+  :root {
+    --font1: 18px;
+    --font2: 20px;
+    --font3: 22px;
+    --font4: 32px;
+  }
+
+  .game-wrapper {
+    background: none;
+  }
+
+  .title {
+    padding-bottom: 12px;
+  }
+
+  .subtitle {
+    padding-bottom: 18px;
+  }
+
+  .game {
+    width: 350px;
+    height: 450px;
+    margin-bottom: 10px;
+  }
+
+  .menu > * {
+    margin-bottom: 30px;
+  }
+
+  .menu__subtitle {
+    line-height: 28px;
+  }
+
+  .menu__level {
+    width: 60px;
+    height: 60px;
+  }
+
+  .menu__btn {
+    padding: 15px 35px;
+  }
+
+  .front-face,
+  .back-face {
+    width: 150px;
+    height: 150px;
+  }
+
+  .card-size-4 {
+    width: 77px;
+    height: 77px;
+  }
+
+  .card-size-6 {
+    width: 48px;
+    height: 60px;
+  }
+
+  .card-size-8 {
+    width: 33px;
+    height: 48px;
+  }
+
+  .card-size-10 {
+    width: 25px;
+    height: 36px;
+  }
+
+  .btn-reset {
+    padding: 12px 20px;
+  }
 }
