@@ -1,0 +1,365 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+
+/*Clear style*/
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  box-sizing: border-box;
+  all: unset;
+  display: revert;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+h1,
+h2 {
+  font-weight: inherit;
+  font-size: inherit;
+  margin: 0;
+}
+
+main {
+  min-height: 100%;
+}
+
+
+/*------------------------------*/
+
+/*General style*/
+
+body {
+  max-width: 1440px;
+  height: 100vh;
+  margin: 0 auto;
+  background: var(--color-basic-darkSteel);
+  color: var(--color-basic-lightGray);
+  font-family: Montserrat, Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+
+/*?----------------------------------------------------------*/
+
+/*Variables*/
+
+:root {
+  --color-bright-default: #ef9978;
+  --color-bright-active: #f36933;
+  --color-basic-lightGray: #f5f6f8;
+  --color-basic-darkSteel: #0e1011;
+  --font1: 24px;
+  --font2: 32px;
+  --font3: 46px;
+  --font4: 72px;
+}
+
+/*?---------------------------------------------------------*/
+
+.game-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: no-repeat 92% 14% /16% url(../assets/svg/paws.svg);
+}
+
+.title {
+  padding-bottom: 30px;
+  color: var(--color-bright-default);
+  font-family: Bangers, Arial, sans-serif;
+  font-size: var(--font4);
+}
+
+.subtitle {
+  padding-bottom: 30px;
+  font-size: var(--font2);
+  font-weight: 800;
+}
+
+.game {
+  display: flex;
+  justify-content: center;
+  width: 600px;
+  height: 600px;
+  margin-bottom: 30px;
+  border: 5px solid var(--color-bright-default);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.menu > * {
+  margin-bottom: 60px;
+}
+
+.menu__title {
+  font-size: var(--font3);
+}
+
+.menu__subtitle {
+  color: var(--color-bright-active);
+  font-size: var(--font2);
+  line-height: 50px;
+}
+
+.menu__level {
+  width: 80px;
+  height: 80px;
+  color: var(--color-basic-darkSteel);
+  background-color: var(--color-basic-lightGray);
+  border: 2px solid var(--color-bright-active);
+  border-radius: 8px;
+  font-size: var(--font3);
+}
+
+.menu__btn {
+  padding: 25px 50px;
+  margin-bottom: 0;
+  border: 2px solid var(--color-bright-active);
+  border-radius: 10px;
+  color: var(--color-basic-lightGray);
+  font-size: var(--font1);
+}
+
+.menu__btn:hover {
+  color: var(--color-basic-darkSteel);
+  background-color: var(--color-bright-default);
+  box-shadow: 2px 2px 10px var(--color-bright-active);
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+}
+
+.menu__btn:active {
+  color: var(--color-basic-lightGray);
+  background-color: var(--color-bright-active);
+  box-shadow: 2px 2px 15px var(--color-bright-active);
+  transform: scale(0.95);
+  transition: all 0.5s ease-in-out;
+}
+
+.hide {
+  display: none;
+}
+
+.playground {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0 10px;
+  margin: 0 5px;
+  perspective: 1000px;
+}
+
+.flip-card-wrap {
+  position: relative;
+  margin: auto;
+  box-shadow: 0 1px 5px var(--color-basic-lightGray);
+  border-radius: 5px;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
+}
+
+.flip-card-wrap.flip {
+  transform: rotateY(180deg);
+  transition: 0.7s ease-in-out;
+}
+
+.front-face {
+  background: no-repeat 0 0 / cover url(../assets/jpg/images.jpg);
+}
+
+.front-face,
+.back-face {
+  width: 220px;
+  height: 220px;
+  border-radius: 5px;
+  backface-visibility: hidden;
+}
+
+.card-size-4 {
+  width: 120px;
+  height: 120px;
+}
+
+.card-size-6 {
+  width: 80px;
+  height: 80px;
+}
+
+.card-size-8 {
+  width: 60px;
+  height: 60px;
+}
+
+.card-size-10 {
+  width: 45px;
+  height: 45px;
+}
+
+.back-face {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(135deg, var(--color-basic-lightGray), var(--color-bright-default), var(--color-bright-active));
+  transform: rotateY(180deg);
+  transition: all 1s ease-in-out;
+}
+
+.number {
+  color: var(--color-basic-darkSteel);
+  font-size: var(--font4);
+  font-weight: 900;
+}
+
+.btn-reset {
+  padding: 15px 25px;
+  border: 2px solid var(--color-bright-default);
+  border-radius: 10px;
+  color: var(--color-basic-lightGray);
+  font-size: var(--font1);
+}
+
+.btn-reset:hover {
+  color: var(--color-basic-darkSteel);
+  background-color: var(--color-bright-active);
+  box-shadow: 2px 2px 10px var(--color-bright-default);
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+}
+
+.btn-reset:active {
+  color: var(--color-basic-darkSteel);
+  background-color: var(--color-basic-lightGray);
+  box-shadow: 2px 2px 15px var(--color-bright-active);
+  transform: scale(0.95);
+  transition: all 0.5s ease-in-out;
+}
+
+.finish {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bravo {
+  padding-bottom: 20px;
+  text-align: center;
+  color: var(--color-bright-active);
+  font-size: var(--font4);
+  font-weight: 800;
+  text-shadow: 2px 2px 15px var(--color-bright-active);
+  animation: bigText 2s infinite;
+}
+
+@keyframes bigText {
+  0%, 100% {
+    font-size: var(--font4);
+  }
+  50% {
+    font-size: 100px;
+  }
+}
+
+.result {
+  text-align: center;
+  color: var(--color-basic-lightGray);
+  font-size: var(--font3);
+  line-height: 70px;
+}
+
+@media (max-width: 375px) {
+  :root {
+    --font1: 18px;
+    --font2: 20px;
+    --font3: 22px;
+    --font4: 32px;
+  }
+
+  .game-wrapper {
+    background: none;
+  }
+
+  .title {
+    padding-bottom: 12px;
+  }
+
+  .subtitle {
+    padding-bottom: 18px;
+  }
+
+  .game {
+    width: 350px;
+    height: 450px;
+    margin-bottom: 10px;
+  }
+
+  .menu > * {
+    margin-bottom: 30px;
+  }
+
+  .menu__subtitle {
+    line-height: 28px;
+  }
+
+  .menu__level {
+    width: 60px;
+    height: 60px;
+  }
+
+  .menu__btn {
+    padding: 15px 35px;
+  }
+
+  .front-face,
+  .back-face {
+    width: 150px;
+    height: 150px;
+  }
+
+  .card-size-4 {
+    width: 77px;
+    height: 77px;
+  }
+
+  .card-size-6 {
+    width: 48px;
+    height: 60px;
+  }
+
+  .card-size-8 {
+    width: 33px;
+    height: 48px;
+  }
+
+  .card-size-10 {
+    width: 25px;
+    height: 36px;
+  }
+
+  .btn-reset {
+    padding: 12px 20px;
+  }
+}
