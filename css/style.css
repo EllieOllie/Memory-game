@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 
 /*Clear style*/
 *,
@@ -24,10 +25,9 @@ h2 {
   margin: 0;
 }
 
-main {
-  min-height: 100%;
+a {
+  cursor: pointer;
 }
-
 
 /*------------------------------*/
 
@@ -35,7 +35,6 @@ main {
 
 body {
   max-width: 1440px;
-  height: 100vh;
   margin: 0 auto;
   background: var(--color-basic-darkSteel);
   color: var(--color-basic-lightGray);
@@ -43,6 +42,22 @@ body {
   font-size: 16px;
   font-weight: 400;
   line-height: 1;
+}
+
+/*прижать футер к низу страницы*/
+html,
+body {
+  height: 100%;
+}
+
+.wrap {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 1 auto;
 }
 
 
@@ -68,7 +83,6 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
   background: no-repeat 92% 14% /16% url(../assets/svg/paws.svg);
 }
 
@@ -157,6 +171,20 @@ body {
   display: none;
 }
 
+.footer {
+  max-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2%;
+}
+
+.copyright {
+  color: var(--color-bright-default);
+  font-family: Pacifico, serif;
+  font-size: var(--font1 - 10%);
+}
+
 .playground {
   display: flex;
   justify-content: center;
@@ -165,6 +193,8 @@ body {
   gap: 0 10px;
   margin: 0 5px;
   perspective: 1000px;
+  -webkit-perspective: 1000px;
+  -moz-perspective: 1000px;
 }
 
 .flip-card-wrap {
@@ -174,6 +204,8 @@ body {
   border-radius: 5px;
   cursor: pointer;
   transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
   transition: transform 0.5s;
 }
 
@@ -192,6 +224,8 @@ body {
   height: 220px;
   border-radius: 5px;
   backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
 }
 
 .card-size-4 {

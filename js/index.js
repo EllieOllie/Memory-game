@@ -275,7 +275,6 @@ function game() {
   showElement(btnReset);
   startTimer();
   dealCards(+input.value);
-  getCards();
   changeSizeImg(+input.value);
   startGame();
 }

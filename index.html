@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content=""/>
   <meta name="keywords" content=""/>
-  <title>Find same cards</title>
+  <title>Memory Game</title>
   <link rel="shortcut icon" href="assets/ico/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
   <link rel="stylesheet" href="css/fonts.css">
@@ -14,20 +14,25 @@
   <script defer src="js/index.js"></script>
 </head>
 <body>
-  <main class="game-wrapper">
-    <h1 class="title">Find the same cards!</h1>
-    <h2 class="subtitle">Train your memory...</h2>
-    <div class="game">
-      <div class="menu">
-        <h2 class="menu__title">Select the level:</h2>
-        <p class="menu__subtitle">Please, enter an <strong>even</strong> number<br>from 2 to 10!</p>
-        <input class="menu__level" type="text" placeholder="4" autofocus maxlength="2">
-        <input class="menu__btn" type="submit" value="Start game!"/>
+  <div class="wrap">
+    <main class="game-wrapper">
+      <h1 class="title">Find the same cards!</h1>
+      <h2 class="subtitle">Train your memory...</h2>
+      <div class="game">
+        <div class="menu">
+          <h2 class="menu__title">Select the level:</h2>
+          <p class="menu__subtitle">Please, enter an <strong>even</strong> number<br>from 2 to 10!</p>
+          <input class="menu__level" type="text" placeholder="4" autofocus maxlength="2">
+          <input class="menu__btn" type="submit" value="Start game!"/>
+        </div>
+        <div class="playground hide"></div>
       </div>
-      <div class="playground hide"></div>
-    </div>
-    <div class="finish hide"></div>
-    <div class="btn-reset hide">Reset</div>
-  </main>
+      <div class="finish hide"></div>
+      <div class="btn-reset hide">Reset</div>
+    </main>
+    <footer class="footer">
+      <a class="copyright" href="https://github.com/EllieOllie" target="_blank">©&nbsp;EllieOllie</a>
+    </footer>
+  </div>
 </body>
 </html>
