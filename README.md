@@ -1,8 +1,9 @@
 Web-application "Memory-game"
 
 Start-screen:
-<img src="https://user-images.githubusercontent.com/82253017/155835273-5caf839c-09ba-4b18-be6d-9c561ce65645.PNG" alt="Start-screen" width="200"/>
-![Menu](https://user-images.githubusercontent.com/82253017/155835273-5caf839c-09ba-4b18-be6d-9c561ce65645.PNG)
+<div>
+ <img src="https://user-images.githubusercontent.com/82253017/155835273-5caf839c-09ba-4b18-be6d-9c561ce65645.PNG" alt="Start-screen" width="200"/>
+</div>
 
 Game-screen:
 ![Game](https://user-images.githubusercontent.com/82253017/155835269-b585adad-9d3f-469d-a9bb-217823f1fbe1.PNG)
