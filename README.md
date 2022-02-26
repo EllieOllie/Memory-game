@@ -1,4 +1,4 @@
-##Web-application "Memory-game"
+# Web-application "Memory-game"
 
 **adapted for mobile!**
 
